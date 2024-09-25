@@ -1,5 +1,5 @@
 /*
- * *** YOUR NAME GOES HERE / YOUR SECTION NUMBER ***
+ * *** Ryan Compas / COMP 272-001 ***
  *
  * This java file contains several simple tree problems that need to be
  * codified. These routines  must use the TreeMap and TreeSet library
@@ -26,6 +26,18 @@ public class TreeProblems {
     // This can be done numerous ways, but once such will only that
     // *several* lines of code. Hint: create two temporary TreeSets and utilize the
     // methods retainAll(), addAll(), and removeAll(). But in the end, get something to work.
+
+    // create temporary TreeSets
+    Set<Integer> treeSetA= new TreeSet<>(setA);
+    Set<Integer> treeSetB= new TreeSet<>(setB);
+
+    // make treeSetA retain common nodes and remove them from setA
+    treeSetA.retainAll(treeSetB);
+    setA.removeAll(treeSetA);
+
+    // remove common nodes in treeSetA from treeSetB and add remaining treeSetB nodes to setA
+    treeSetB.removeAll(treeSetA);
+    setA.addAll(treeSetB);
 
     return setA;
   }
