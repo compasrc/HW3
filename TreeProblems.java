@@ -52,8 +52,10 @@ public class TreeProblems {
 
   public static void removeEven(Map<Integer, String> treeMap) {
 
+    // create iterator to move through the treeMap
     Iterator<Map.Entry<Integer, String>> iterator = treeMap.entrySet().iterator();
 
+    // iterate through treeMap, deleting keys if they are even
     while (iterator.hasNext()){
       Map.Entry<Integer, String> entry = iterator.next();
       if (entry.getKey() % 2 == 0){
@@ -73,10 +75,11 @@ public class TreeProblems {
 
   public boolean treesEqual(Map<Integer, String> tree1,Map<Integer, String> tree2 ) {
 
-    // INSERT CODE HERE
-
-    return false;
-
+    // use equals method to compare trees
+    if (tree1.equals(tree2)){
+      return true;
+    } else {
+      return false;
+    }
   }
-
 } // end treeProblems class
