@@ -78,7 +78,8 @@ public class TreeProblems {
     // use equals method to compare trees
     if (tree1.equals(tree2)){
       return true;
-    } else {
+    }
+    else {
       return false;
     }
   }

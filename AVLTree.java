@@ -301,7 +301,7 @@ class LUC_AVLTree {
      *
      *  This includes the following scenarios of where the node to delete is 
      *  in the tree:
-     *    1. leaf node - simpliest case, just return null (which removes node)
+     *    1. leaf node - simplest case, just return null (which removes node)
      *    2. interior node with only left subtree below it (node gets replaced 
      *       with left subtree)
      *    3. interior node with only right subtree below it (node gets replaced
@@ -345,7 +345,7 @@ class LUC_AVLTree {
 
         /*
          * ADD CODE HERE
-         * 
+         *
          * NOTE, that you should use the existing coded private methods
          * in this file, which include:
          *      - minValueNode,
@@ -362,7 +362,68 @@ class LUC_AVLTree {
          * do many of the same things as this method.
          */
 
-        return node;
+        // check if initial node is null
+        if (node == null){
+            return null;
+        }
+
+        //check if left or right child needs traversed using recursive calls
+        if (value < node.value){
+            node.leftChild = deleteElement(value, node.leftChild);
+        }
+        else if (value > node.value) {
+            node.rightChild = deleteElement(value, node.rightChild);
+
+        } else {
+
+            // case if no children - delete node
+            if (node.leftChild == null && node.rightChild == null) {
+                return null;
+
+            // case if only right child - delete node and replace with child
+            } else if (node.leftChild == null) {
+                node = node.rightChild;
+
+            // case if only left child - delete node and replace with child
+            } else if (node.rightChild == null) {
+                node = node.leftChild;
+
+            // case if 2 children present
+            } else {
+                // find in-order successor
+                Node inOrderSuccessor = minValueNode(node.rightChild);
+                // copy in-order successor's node value into node's value
+                node.value = inOrderSuccessor.value;
+                // delete in-order successor
+                node.rightChild = deleteElement(inOrderSuccessor.value, node.rightChild);
+            }
+        }
+
+        // update new node height after deletion occurs
+        node.height = (getMaxHeight(getHeight(node.leftChild), getHeight(node.rightChild))) + 1;
+
+        // calculate balance factor
+        int balanceFactor = getBalanceFactor(node);
+
+        // if greater than 1, left rotation is needed
+        if (balanceFactor > 1){
+            // check balance factor of left child to determine LL or LR rotation
+            if (getBalanceFactor(node.leftChild) > 0){
+                return LLRotation(node);
+            }
+            else { return LRRotation(node);
+            }
+        }
+        // if greater than 1, right rotation is needed
+        if (balanceFactor < -1)
+            // check balance factor of right child to determine RR or RL rotation
+            if (getBalanceFactor(node.rightChild) < 0){
+                return RRRotation(node);
+            }
+            else { return RLRotation(node);
+            }
+
+    return node;
     }
 
 
